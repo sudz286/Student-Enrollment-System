@@ -1,0 +1,53 @@
+<h2>Course Actions</h2>
+<div>
+    <%= link_to "Create a New Course", new_course_path %>
+</div>
+<div>
+    <%= link_to "Enroll Student in a Course", new_enrollment_path %>
+</div>
+<h2>My Courses</h2>
+<% if @courses.length > 0 %>
+    <table border>
+            <thead>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Weekdays
+                </th>
+                <th>
+                    Times
+                </th>
+                <th>
+                    Room
+                </th>
+            </thead>
+            <% @courses.each do |x| %>
+                <tr>
+                    <td><%= x.course_code %></td>
+                    <td><%= x.name %></td>
+                    <td><%= x.description %></td>
+                    <td><%= Course.weekdays.invert[x.weekday_one] %> <%= Course.weekdays.invert[x.weekday_two]%></td>
+                    <td><%= x.start_time.hour %>:<%=x.start_time.min.to_s.ljust(2, "0") %> - <%= x.end_time.hour %>:<%= x.end_time.min.to_s.ljust(2, "0")%></td>
+                    <td><%= x.room %></td>
+                    <td>
+                        <div>
+                            <%= link_to "#{x.course_code} Details", course_path(id: x.id) %>
+                        </div>
+                        <div>
+                            <%= link_to "Edit #{x.course_code}", edit_course_path(id: x.id) %>
+                        </div>
+                        <%= button_to("Delete", course_path(id: x.id), {method: :delete}) %>
+                    </td>
+                </tr>
+            <% end %>
+        </table>
+<% else %>
+<p>You have no courses.</p>
+<% end %>

@@ -1,0 +1,94 @@
+
+<div>
+    <a href="/courses">
+        View All Courses
+    </a>
+</div>
+<div>
+    <h2>My Enrolled Courses</h2>
+    <% if @enrolledCourses.length > 0 %>
+        <table border>
+            <thead>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Weekdays
+                </th>
+                <th>
+                    Times
+                </th>
+                <th>
+                    Room
+                </th>
+            </thead>
+            <% @enrolledCourses.each do |x| %>
+                <tr>
+                    <td><%= x[:course].course_code %></td>
+                    <td><%= x[:course].name %></td>
+                    <td><%= x[:course].description %></td>
+                    <td><%= Course.weekdays.invert[x[:course].weekday_one] %> <%= Course.weekdays.invert[x[:course].weekday_two]%></td>
+                    <td><%= x[:course].start_time.hour %>:<%=x[:course].start_time.min.to_s.ljust(2, "0") %> - <%= x[:course].end_time.hour %>:<%= x[:course].end_time.min.to_s.ljust(2, "0")%></td>
+                    <td><%= x[:course].room %></td>
+                    <td>
+                        <% if current_user.student?%>
+                            <%= button_to("Drop", enrollment_path(id: x[:enrollment].id), {method: :delete}) %>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+        </table>
+    <% else %>
+        <p>You are not currently enrolled in any courses.</p>
+    <% end %>
+</div>
+<div>
+    <h2>My Waitlisted Courses</h2>
+    <% if @waitlistedCourses.length > 0 %>
+        <table border>
+            <thead>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Weekdays
+                </th>
+                <th>
+                    Times
+                </th>
+                <th>
+                    Room
+                </th>
+            </thead>
+            <% @waitlistedCourses.each do |x| %>
+                <tr>
+                    <td><%= x[:course].course_code %></td>
+                    <td><%= x[:course].name %></td>
+                    <td><%= x[:course].description %></td>
+                    <td><%= Course.weekdays.invert[x[:course].weekday_one] %> <%= Course.weekdays.invert[x[:course].weekday_two]%></td>
+                    <td><%= x[:course].start_time.hour %>:<%=x[:course].start_time.min.to_s.ljust(2, "0") %> - <%= x[:course].end_time.hour %>:<%= x[:course].end_time.min.to_s.ljust(2, "0")%></td>
+                    <td><%= x[:course].room %></td>
+                    <td>
+                        <% if current_user.student?%>
+                            <%= button_to("Drop", waitlist_path(id: x[:waitlist].id), {method: :delete}) %>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+        </table>
+    <% else %>
+        <p>You are not currently waitlisted for any courses.</p>
+    <% end %>
+</div>

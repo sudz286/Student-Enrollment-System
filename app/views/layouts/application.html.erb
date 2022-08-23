@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html style="font-family: sans-serif">
+  <head>
+    <title>StudentEnrollmentSystem</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <% if logged_in? %>
+      Role: 
+      <% if current_user.admin? %>
+      <span style="text-decoration: underline;">Admin</span>
+      <% elsif current_user.instructor? %>
+        <span style="font-style: italic; font-weight: bold;">Instructor</span>
+      <% else %>
+        <span style="font-weight: bold;">Student</span>
+      <% end %>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div style="border: 1px solid red; background-color: lightcoral">
+          <p style="padding-left: 1em"><%= flash[:alert] %></p>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div style="border: 1px solid green; background-color: palegreen">
+          <p style="padding-left: 1em"><%= flash[:notice] %></p>
+      </div>
+    <% end %>
+    <% if flash[:errors] %>
+      <div style="border: 1px solid red; background-color: lightcoral">
+        <% flash[:errors].each do |e| %>
+          <p style="padding-left: 1em"><%= e %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= yield %>
+
+    <br><br><br>
+    <% if logged_in? %>
+      <% if !current_page?(user_path(id: current_user.id)) %>
+        <%= link_to "My Dashboard", user_path(id: current_user.id) %>
+      <% end %>
+      <%= button_to "Logout", sessions_path, method: :delete %>
+    <% elsif !current_page?(login_path) and !current_page?(root_path) %>
+      <%= button_to "Login", login_path, method: :get %>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<h1>Edit <%= @course.name %> (<%= @course.course_code %>)</h1>
+
+<%= form_with model: @course, url: course_path(id: @course.id), method: :put do |form| %>
+    <div>
+        <%= form.label :name, "Course name*:" %>
+        <%= form.text_field :name %>
+    </div>
+    <div>
+        <%= form.label :description, "Course description*:" %>
+        <%= form.text_area :description %>
+    </div>
+    <div>
+        <%= form.label :user_id, "Instructor*:" %>
+        <%= form.collection_select(:user_id, @instructors, :id, :name) %>
+    </div>
+    <div>
+        <%= form.label :weekday_one, "Weekday One*:" %>
+        <select name="course[weekday_one]" id="course_weekday_one">
+            <option value="<%= @weekdays[:MON][:val] %>" <%= @course.weekday_one == 0 ? "selected" : "" %>><%= @weekdays[:MON][:name] %></option>
+            <option value="<%= @weekdays[:TUE][:val] %>" <%= @course.weekday_one == 1 ? "selected" : "" %>><%= @weekdays[:TUE][:name] %></option>
+            <option value="<%= @weekdays[:WED][:val] %>" <%= @course.weekday_one == 2 ? "selected" : "" %>><%= @weekdays[:WED][:name] %></option>
+            <option value="<%= @weekdays[:THU][:val] %>" <%= @course.weekday_one == 3 ? "selected" : "" %>><%= @weekdays[:THU][:name] %></option>
+            <option value="<%= @weekdays[:FRI][:val] %>" <%= @course.weekday_one == 4 ? "selected" : "" %>><%= @weekdays[:FRI][:name] %></option>
+        </select>
+    </div>
+    <div>
+        <%= @course.weekday_two %>
+        <%= form.label :weekday_two, "Weekday Two:" %>
+        <select name="course[weekday_two]" id="course_weekday_two">
+            <option value="<%= @weekdays[:MON][:val] %>" <%= @course.weekday_two == 0 ? "selected" : "" %>><%= @weekdays[:MON][:name] %></option>
+            <option value="<%= @weekdays[:TUE][:val] %>" <%= @course.weekday_two == 1 ? "selected" : "" %>><%= @weekdays[:TUE][:name] %></option>
+            <option value="<%= @weekdays[:WED][:val] %>" <%= @course.weekday_two == 2 ? "selected" : "" %>><%= @weekdays[:WED][:name] %></option>
+            <option value="<%= @weekdays[:THU][:val] %>" <%= @course.weekday_two == 3 ? "selected" : "" %>><%= @weekdays[:THU][:name] %></option>
+            <option value="<%= @weekdays[:FRI][:val] %>" <%= @course.weekday_two == 4 ? "selected" : "" %>><%= @weekdays[:FRI][:name] %></option>
+            <option value="<%= @weekdays[:none][:val] %>" <%= !@course.weekday_two ? "selected" : "" %>><%= @weekdays[:none][:name] %></option>
+        </select>
+    </div>
+    <div>
+        <%= form.label :start_time, "Start time*:" %>
+        <%= form.time_field :start_time %>
+    </div>
+    <div>
+        <%= form.label :end_time, "End time*:" %>
+        <%= form.time_field :end_time %>
+    </div>
+    <div>
+        <%= form.label :course_code, "Course code*:" %>
+        <%= form.text_field :course_code %>
+    </div>
+    <div>
+        <%= form.label :capacity, "Capacity*:" %>
+        <%= form.number_field :capacity, in: 1..200, step: 1%>
+    </div>
+    <div>
+        <%= form.label :waitlist_capacity, "Waitlist capacity:" %>
+        <%= form.number_field :waitlist_capacity, in: 0..200, step: 1%>
+    </div>
+    <div>
+        <%= form.label :status, "Status*:" %>
+        <%= form.collection_select(:status, @status, :name, :name) %>
+    </div>
+    <div>
+        <%= form.label :room, "Room*:" %>
+        <%= form.text_field :room %>
+    </div>
+    <div>
+        <%= form.submit "Save Changes" %>
+    </div>
+<% end %>

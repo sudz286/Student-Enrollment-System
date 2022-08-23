@@ -1,0 +1,59 @@
+<h1>Courses Index</h1>
+
+<table border>
+    <thead>
+        <tr>
+            <th>
+                Code
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Weekdays
+            </th>
+            <th>
+                Times
+            </th>
+            <th>
+                Room
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @courses.each do |course| %>
+            <tr>
+                <td><%= course.course_code %></td>
+                <td><%= course.name %></td>
+                <td><%= course.description %></td>
+                <td><%= Course.weekdays.invert[course.weekday_one] %> <%= Course.weekdays.invert[course.weekday_two]%></td>
+                <td><%= course.start_time.hour %>:<%=course.start_time.min.to_s.ljust(2, "0") %> - <%=course.end_time.hour %>:<%= course.end_time.min.to_s.ljust(2, "0")%></td>
+                <td><%= course.room %></td>
+                <td><%= course.status %></td>
+                <td>
+                    <% if current_user.student? and !course.CLOSED?%>
+                        <%= button_to("Enroll", enrollments_path(enrollment: {course_id: course.id, user_id: current_user.id}), {method: :post}) %>
+                    <% end %>
+                    <% if current_user.admin? %>
+                        <div>
+                            <%= link_to "#{course.course_code} Details", course_path(id: course.id) %>
+                        </div>
+                        <div>
+                            <%= link_to "Edit #{course.course_code}", edit_course_path(id: course.id)%>
+                        </div>
+                        <div>
+                            <%= button_to "Delete", course_path(id: course.id), {method: :delete} %>
+                        </div>
+                    <% end %>
+                </td>
+            </tr>
+            
+        <% end %>
+    </tbody>
+</table>

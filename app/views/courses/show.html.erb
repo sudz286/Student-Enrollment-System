@@ -1,0 +1,35 @@
+<h1><%= @course.name %></h1>
+<h2>Course Details</h2>
+
+<p><span style="font-weight: bold">Course code:</span> <%= @course.course_code %></p>
+<p><span style="font-weight: bold">Description:</span> <%= @course.description %></p>
+<p><span style="font-weight: bold">Weekdays:</span> <%= Course.weekdays.invert[@course.weekday_one] %> <%= Course.weekdays.invert[@course.weekday_two] %></p>
+<p><span style="font-weight: bold">Times:</span> <%= @course.start_time.hour %>:<%= @course.start_time.min.to_s.ljust(2, "0") %> - <%= @course.end_time.hour %>:<%= @course.end_time.min.to_s.ljust(2, "0") %></p>
+<p><span style="font-weight: bold">Room:</span> <%= @course.room %></p>
+<p><span style="font-weight: bold">Capacity:</span> <%= @course.capacity %></p>
+<p><span style="font-weight: bold">Waitlist capacity:</span> <% if @course.waitlist_capacity > 0%>
+    <%= @course.waitlist_capacity %>
+    <% else %>
+    There is no waitlist for this course.
+    <% end %>
+</p>
+<p><span style="font-weight: bold">Status:</span> <%= @course.status %></p>
+
+<h2>Enrolled Students</h2>
+<% if @enrolledStudents.length > 0 %>
+    <%= render partial: "enrolled_students_table" %>
+<% else %>
+    No students are enrolled in this course.
+<% end %>
+
+
+<h2>Waitlisted Students</h2>
+<% if @course.waitlist_capacity > 0 %>
+    <% if @waitlistedStudents.length > 0 %>
+        <%= render partial: "waitlisted_students_table" %>
+    <% else %>
+        There are no students waitlisted for this course.
+    <% end %>
+<% else %>
+    There is no waitlist for this course.
+<% end %>

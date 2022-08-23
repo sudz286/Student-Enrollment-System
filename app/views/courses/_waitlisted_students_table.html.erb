@@ -1,0 +1,25 @@
+<table border>
+    <thead>
+        <th>
+            Student Name
+        </th>
+        <th>
+            Student ID
+        </th>
+    </thead>
+    <tbody>
+        <% @waitlistedStudents.each do |student| %>
+            <tr>
+                <td>
+                    <%= student[:student].name %>
+                </td>
+                <td>
+                    <%= student[:student].student_id %>
+                </td>
+                <td>
+                    <%= button_to "Drop", waitlist_path(id: student[:waitlist].id), {method: :delete}%>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

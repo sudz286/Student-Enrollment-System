@@ -1,0 +1,27 @@
+<h1>Students Index</h1>
+
+<table border>
+    <thead>
+        <th>Name</th>
+        <th>Student ID</th>
+        <th>Email</th>
+    </thead>
+    <tbody>
+        <% @students.each do |student| %>
+            <tr>
+                <td><%= student.name %></td>
+                <td><%= student.student_id %></td>
+                <td><%= student.email %></td>
+                <td>
+                    <%= link_to "View #{student.name}'s Profile", user_path(id: student.id) %>
+                </td>
+                <td>
+                    <%= link_to "Edit #{student.name}'s Profile", edit_student_path(id: student.id) %>
+                </td>
+                <td>
+                    <%= button_to "Delete", {action: "destroy", id: student.id}, {method: :delete} %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

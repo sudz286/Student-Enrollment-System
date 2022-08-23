@@ -1,0 +1,31 @@
+<h1>Edit <%= @student.name %>'s Profile</h1>
+
+<%= form_with model: @student, url: student_path(id: @student.id), method: :put do |form| %>
+    <div>
+        <%= form.label :name, "Name:" %>
+        <%= form.text_field :name %>
+    </div>
+    <div>
+        <%= form.label :student_id, "Student ID:" %>
+        <%= form.text_field :student_id %>
+    </div>
+    <div>
+        <%= form.label :email, "Email:" %>
+        <%= form.email_field :email %>
+    </div>
+    <div>
+        <%= form.label :date_of_birth, "Date of birth:" %>
+        <%= form.datetime_local_field :date_of_birth %>
+    </div>
+    <div>
+        <%= form.label :password, "Password:" %>
+        <%= form.password_field :password %>
+    </div>
+    <div>
+        <%= form.label :major, "Major:" %>
+        <%= form.text_field :major %>
+    </div>
+    <div>
+        <%= form.submit "Save Changes" %>
+    </div>
+<% end %>

@@ -1,0 +1,9 @@
+<h1>Enrollments Index</h1>
+
+<% @enrollments.each do |enrollment| %>
+    <div>
+        <p><%= Course.where(id: enrollment.course_id)[0].name %></p>
+        <p><%= User.where(id: enrollment.user_id)[0].name %></p>
+        <%= button_to("Drop", enrollment_path(id: enrollment.id), {method: :delete}) %>
+    </div>
+<% end %>

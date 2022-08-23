@@ -1,0 +1,13 @@
+<h1><%= @user.name %>'s Profile </h1>
+
+<div>
+    <% if current_user.admin? and current_user.id == @user.id %>
+        <%= render :partial => "admin_view" %>
+    <% end %>
+    <% if current_user.student? and current_user.id == @user.id %>
+        <%= render :partial => "student_view" %>
+    <% end %>
+    <% if current_user.instructor? and current_user.id == @user.id %>
+        <%= render :partial => "instructor_view" %>
+    <% end %>
+<div>

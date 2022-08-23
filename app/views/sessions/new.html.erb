@@ -1,0 +1,26 @@
+<h1>Login</h1>
+
+<%= form_with url: sessions_path, method: :post do |form| %>
+    <div>
+        <%= form.label :email, "Email:" %>
+        <%= form.text_field :email %>
+    <div>
+    <div>
+        <%= form.label :password, "Password:" %>
+        <%= form.password_field :password %>
+    </div>
+    <br>
+    <div>
+        <%= form.submit "Login" %>
+    </div>
+    <div>
+        <a href="/students/new">
+            Create Student Account
+        </a>
+    </div>
+    <div>
+        <a href="/instructors/new">
+            Create Instructor Account
+        </a>
+    </div>
+<% end %>

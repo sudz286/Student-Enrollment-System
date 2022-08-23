@@ -1,0 +1,15 @@
+<h1>Admin edit form</h1>
+
+<%= form_with model: @admin, url: admin_path(id: @admin.id), method: :put do |form| %>
+    <div>
+        <%= form.label :name, "Name:" %>
+        <%= form.text_field :name %>
+    </div>
+    <div>
+        <%= form.label :phone_number, "Phone number:" %>
+        <%= form.text_field :phone_number %>
+    </div>
+    <div>
+        <%= form.submit "Save Changes" %>
+    </div>
+<% end %>

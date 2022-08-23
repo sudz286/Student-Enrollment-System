@@ -1,0 +1,20 @@
+<h1>Instructors Index</h1>
+
+<table border>
+    <thead>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+    </thead>
+    <tbody>
+        <% @instructors.each do |instructor| %>
+            <tr>
+                <td><%= instructor.name %></td>
+                <td><%= instructor.email %></td>
+                <td><%= instructor.department %></td>
+                <td><%= link_to "Edit #{instructor.name}", edit_instructor_path(id: instructor.id) %></td>
+                <td><%= button_to "Delete", instructor_path(id: instructor.id), {method: :delete} %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

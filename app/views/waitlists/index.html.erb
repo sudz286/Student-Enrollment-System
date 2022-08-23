@@ -1,0 +1,9 @@
+<h1>Waitlist Entries</h1>
+
+<% @waitlists.each do |entry| %>
+    <div>
+        <p><%= Course.find(entry.course_id).name %></p>
+        <p><%= User.find(entry.user_id).name %> (<%= User.find(entry.user_id).student_id %>)</p>
+        <%= button_to("Drop", waitlist_path(id: entry.id), {method: :delete}) %>
+    </div>
+<% end %>
